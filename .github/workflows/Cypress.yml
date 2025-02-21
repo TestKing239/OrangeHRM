@@ -1,4 +1,4 @@
-name: Run Cypress Tests
+name: Run Cypress Tests on Push
 
 on: [push] # Runs on every push
 
@@ -13,7 +13,16 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Run Cypress Tests (Only One File)
+      - name: Start Server
+        run: npm start &  # Run server in the background
+
+      - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          spec: cypress\e2e\locaters.cy.js  # Change to your test file
+          wait-on: 'http://localhost:8080'  # Adjust port if needed
+          record: true
+          parallel: true
+          spec: cypress\e2e\locaters.cy.js  # Update with actual test file path
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
