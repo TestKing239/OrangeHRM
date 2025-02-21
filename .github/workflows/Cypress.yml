@@ -1,28 +1,12 @@
-name: Run Cypress Tests on Push
-
-on: [push] # Runs on every push
-
+name: End-to-end tests
+on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-24.04
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Start Server
-        run: npm start &  # Run server in the background
-
-      - name: Run Cypress Tests
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
         uses: cypress-io/github-action@v6
-        with:
-          wait-on: chrome  # Adjust port if needed
-          record: true
-          parallel: true
-          spec: cypress\e2e\locaters.cy.js  # Update with actual test file path
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-
