@@ -1,20 +1,19 @@
-name: Cypress Tests
-on: [push]
+name: Run Cypress Tests
+
+on: [push] # Runs on every push
 
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Cypress run (Specific File)
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Cypress Tests (Only One File)
         uses: cypress-io/github-action@v6
         with:
-          start: npm start
-          wait-on: 'http://localhost:3000'
-          record: true
-          spec: cypress\e2e\locaters.cy.js # Change this to your test file
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          spec: cypress\e2e\locaters.cy.js  # Change to your test file
