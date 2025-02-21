@@ -19,7 +19,7 @@ jobs:
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          wait-on: 'http://localhost:8080'  # Adjust port if needed
+          wait-on: chrome  # Adjust port if needed
           record: true
           parallel: true
           spec: cypress\e2e\locaters.cy.js  # Update with actual test file path
