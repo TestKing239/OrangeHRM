@@ -9,9 +9,6 @@ describe('My First Test', () => {
       cy.title().should('eq', 'OrangeHRM')
     })
 
-
-
-
     it('Verify title nagetaive test', () => {
 
         cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
