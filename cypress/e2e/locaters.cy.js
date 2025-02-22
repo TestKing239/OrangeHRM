@@ -12,10 +12,8 @@ describe('locaters', () =>{
             name += letters.charAt(Math.floor(Math.random() * letters.length));
         }
         return name;
-    }
-    
+    }    
     const RandomName = getRandomName();
-    console.log(RandomName); // Example output: "JHGFD"
     
 
 
