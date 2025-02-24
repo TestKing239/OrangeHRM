@@ -124,7 +124,7 @@ it  ("Add Asset", function(){
         cy.xpath("//a[normalize-space()='Manage Metrics']").click()
         cy.xpath("//button[normalize-space()='Set-up Metrics']").click()
         cy.wait(3000)
-        cy.get('.multiSelect_dropdown').click()
+        cy.get('.multiSelect_dropdown').click
         .select('Cost Of Sales (COS)')
         cy.xpath("//div[@class='multiSelect_dropdown -hasValue']").click()
         cy.xpath("//form[@id='preMetricModal']//button[@type='submit'][normalize-space()='Add']").click()
