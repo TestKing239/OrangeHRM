@@ -14,7 +14,7 @@ jobs:
 
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
-      - name: Run Cypress Tests
+      - name: npx cypress run --spec "cypress/e2e/fundsheetcypress.cy.js"
         uses: cypress-io/github-action@v6
 
       - name: Upload Cypress Screenshots (on failure)
