@@ -1,0 +1,33 @@
+name: Run in 5 min
+on:  
+  repository_dispatch:
+    types: [run-cypress]
+  schedule:
+    - cron: '*/5 * * * *'  # Runs every 5 minutes
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
+
+      - name: Upload Cypress Screenshots (on failure)
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
+
+      - name: Upload Cypress Videos
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          if-no-files-found: ignore
