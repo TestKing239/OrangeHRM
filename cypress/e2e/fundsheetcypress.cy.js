@@ -45,7 +45,8 @@ describe('fundsheetcypress', function() {
 
           cy.get('#upgradePlanForm > .btn').click()
           cy.get('h2').should('have.text', 'Payment Successful!')
-    
+          cy.log('STM 123')
+
 
     })
 
@@ -106,6 +107,9 @@ it("Add Companies", function(){
 
       
     })
+
+
+
 it  ("Add Asset", function(){
 
 
@@ -124,16 +128,20 @@ it  ("Add Asset", function(){
         cy.xpath("//a[normalize-space()='Manage Metrics']").click()
         cy.xpath("//button[normalize-space()='Set-up Metrics']").click()
         cy.wait(3000)
-        cy.get('.multiSelect_dropdown').click
-        .select('Cost Of Sales (COS)')
+        cy.get('.multiSelect_dropdown').select('Revenue')
+        cy.get('[data-value="1"] > .multiSelect_text').click()
+
         cy.xpath("//div[@class='multiSelect_dropdown -hasValue']").click()
         cy.xpath("//form[@id='preMetricModal']//button[@type='submit'][normalize-space()='Add']").click()
 
+        cy.log('STM 123')
 
-       
 
    
 })
+
+
+
 
 
 })

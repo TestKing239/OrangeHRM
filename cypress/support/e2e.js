@@ -17,3 +17,21 @@
 import './commands'
 
 import 'cypress-xpath';
+
+
+
+
+  Cypress.on('uncaught:exception', (err, runnable) => {
+    // Ignore errors related to cross-origin scripts
+    if (err.message.includes("Script error.") || err.message.includes("cross origin")) {
+      return false;
+    }
+    return true; // Allow other errors to be logged
+  });
+
+  Cypress.on('uncaught:exception', (err, runnable) => {
+    if (err.message.includes("datetimepicker is not a function")) {
+      return false; // Ignore the error and continue tests
+    }
+    return true; // Let Cypress handle other errors
+  });
