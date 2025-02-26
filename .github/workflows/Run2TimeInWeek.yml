@@ -1,8 +1,8 @@
-name: End-to-End Tests (Scheduled & Dispatch)
+name: Suterday funsheet Test 
 
 on:  
   schedule:
-    - cron: '*/5 * * * *'  # Runs every 5 minutes
+  - cron: '0 22 * * 6'  # Runs at 22:00 (10 PM) every Saturday
 
 jobs:
   cypress-run:
