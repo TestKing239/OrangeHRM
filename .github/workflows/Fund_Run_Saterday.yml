@@ -7,25 +7,16 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-24.04
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Cache npm dependencies
-        uses: actions/cache@v3
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
         with:
-          path: ~/.npm
-          key: npm-cache-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            npm-cache-
-
-      - name: Install dependencies
-        run: npm ci  # Faster & reliable than 'npm install'
-
-      # Run a specific Cypress test file
-      - name: Run Cypress Test for Specific File
-        run: Run Cypress Tests --spec "cypress/integration/specific-test.spec.js"
+          spec: "cypress/e2e/hkms.cy.js"
 
       - name: Upload Cypress Screenshots (on failure)
         uses: actions/upload-artifact@v4
