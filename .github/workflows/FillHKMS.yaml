@@ -1,0 +1,25 @@
+name: Run Cypress Tests Daily
+
+on:
+  schedule:
+    - cron: '0 5 * * *' # Runs every day at 11 AM IST (5 AM UTC)
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  cypress-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18' # Use the Node.js version required by your project
+
+      - name: Install Dependencies
+        run: npm install # or yarn install, depending on your project
+
+      - name: Run Cypress Tests
+        run: npx cypress run --spec "cypress/e2e/hkms.cy.js"
