@@ -16,7 +16,7 @@ jobs:
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          spec: "cypress/e2e/hkms.cy.js"
+          spec: "cypress/e2e/fundsheetcypress.cy.js"
 
       - name: Upload Cypress Screenshots (on failure)
         uses: actions/upload-artifact@v4
