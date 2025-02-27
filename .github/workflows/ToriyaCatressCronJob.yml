@@ -2,7 +2,7 @@ name: SEO Toriya Catress
 
 on:
   schedule:
-- cron: '30 0,4,8,12,16 * * *'
+  - cron: '30 0,4,8,12,16 * * *'
   workflow_dispatch: # Allows manual triggering
 
 jobs:
