@@ -1,0 +1,27 @@
+name: SEO Toriya Catress
+
+on:
+  schedule:
+- cron: '30 0,4,8,12,16 * * *'
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  cypress-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18' # Use the Node.js version required by your project
+
+      - name: Install Dependencies
+        run: npm install # or yarn install, depending on your project
+
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          spec: "ToriyaCatressSEO.cy.js"
