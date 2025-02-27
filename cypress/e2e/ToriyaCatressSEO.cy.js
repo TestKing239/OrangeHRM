@@ -1,7 +1,7 @@
 const { title } = require("process");
 
 
-describe('NKDailyUpdate', () => {
+describe('ToriyaCaterssSEO', () => {
 
 it('Login', () => {
 cy.visit('https://www.justdial.com/')
