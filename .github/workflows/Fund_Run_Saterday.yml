@@ -2,8 +2,8 @@ name: Suterday funsheet Test
 
 on:  
   schedule:
-  - cron: '0 22 * * 6'  # Runs at 22:00 (10 PM) every Saturday
-
+  - cron: '30 3 * * 1'  # Runs at 9:30 AM IST (3:30 AM UTC) every Monday
+  - cron: '30 5 * * 6'  # Runs at 11:30 AM IST (5:30 AM UTC) every Saturday
 jobs:
   cypress-run:
     runs-on: ubuntu-24.04
