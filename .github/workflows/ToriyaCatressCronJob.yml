@@ -2,7 +2,7 @@ name: SEO Toriya Catress
 
 on:
   schedule:
-  - cron: '30 0,4,8,12,16 * * *'
+    - cron: '30 0,4,8,12,16 * * *' # Runs every 4 hours
   workflow_dispatch: # Allows manual triggering
 
 jobs:
@@ -21,7 +21,13 @@ jobs:
       - name: Install Dependencies
         run: npm install # or yarn install, depending on your project
 
-      - name: Run Cypress Tests
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      - name: Run Cypress Tests in Chrome
         uses: cypress-io/github-action@v6
         with:
           spec: "cypress/e2e/ToriyaCatressSEO.cy.js"
+          browser: chrome # Run tests in Chrome
