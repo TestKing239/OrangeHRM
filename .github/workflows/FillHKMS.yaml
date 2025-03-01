@@ -25,3 +25,10 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           spec: "cypress/e2e/hkms.cy.js"
+          
+      - name: Upload Cypress Screenshots (if tests fail)
+        if: failed()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots/**/*
