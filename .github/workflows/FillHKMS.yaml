@@ -27,7 +27,7 @@ jobs:
           spec: "cypress/e2e/hkms.cy.js"
           
       - name: Upload Cypress Screenshots (if tests fail)
-        if: failed()
+        if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: cypress-screenshots
