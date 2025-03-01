@@ -32,3 +32,11 @@ jobs:
           name: cypress-videos
           path: cypress/videos
           if-no-files-found: ignore
+               
+      - name: Upload Cypress Screenshots (if tests fail)
+        if: failure()
+        uses: actions/upload-artifact@v4  # Update to v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots/**/*
+
