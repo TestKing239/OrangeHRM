@@ -2,7 +2,7 @@ name: Fill Hkms
 
 on:
   schedule:
-  - cron: '30 17 * * 1-6' # Runs at 11:30 PM IST (5:30 PM UTC) Monday to Saturday
+    - cron: '30 5 * * 1-6' # Runs at 11:00 AM IST (5:30 AM UTC), Monday to Saturday
   workflow_dispatch: # Allows manual triggering
 
 jobs:
@@ -16,19 +16,28 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18' # Use the Node.js version required by your project
+          node-version: '18' # Adjust as needed
 
       - name: Install Dependencies
-        run: npm install # or yarn install, depending on your project
+        run: npm install # Use yarn install if your project requires it
+
+      - name: Verify Cypress Installation
+        run: npx cypress install
+
+      - name: Log Cypress Run Start
+        run: echo "Starting Cypress tests at 11:00 AM IST..."
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
           spec: "cypress/e2e/hkms.cy.js"
-          
+
+      - name: Log Cypress Run End
+        run: echo "Cypress tests completed."
+
       - name: Upload Cypress Screenshots (if tests fail)
         if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: cypress-screenshots
-          path: cypress/screenshots/
+          path: cypress/screenshots/**/*
