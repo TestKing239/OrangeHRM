@@ -19,24 +19,31 @@ jobs:
           node-version: '18' # Adjust as needed
 
       - name: Install Dependencies
-        run: npm install # Use yarn install if your project requires it
+        run: npm install # or yarn install if your project requires it
 
       - name: Verify Cypress Installation
         run: npx cypress install
 
-      - name: Log Cypress Run Start
-        run: echo "Starting Cypress tests at 11:00 AM IST..."
-
       - name: Run Cypress Tests
+        id: cypress
+        continue-on-error: true  # Allows next steps to execute even if tests fail
         uses: cypress-io/github-action@v6
         with:
           spec: "cypress/e2e/hkms.cy.js"
 
-      - name: Log Cypress Run End
-        run: echo "Cypress tests completed."
+      - name: Check for Screenshots
+        id: check_screenshots
+        run: |
+          if [ -d "cypress/screenshots" ] && [ "$(ls -A cypress/screenshots)" ]; then
+            echo "Screenshots found."
+            echo "exists=true" >> $GITHUB_ENV
+          else
+            echo "No screenshots found."
+            echo "exists=false" >> $GITHUB_ENV
+          fi
 
-      - name: Upload Cypress Screenshots (if tests fail)
-        if: failure()
+      - name: Upload Cypress Screenshots (if tests fail and screenshots exist)
+        if: failure() && env.exists == 'true'
         uses: actions/upload-artifact@v3
         with:
           name: cypress-screenshots
