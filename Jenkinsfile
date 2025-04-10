@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+
+
+    triggers {
+        cron('0 4 * * *') // This runs at 10:00 AM IST
+    }
     tools {
         nodejs "NodeJs 18"
     }
@@ -20,13 +25,13 @@ pipeline {
 
         stage('Run Code') {
             steps { // corrected 'stpes' to 'steps'
-                sh 'npx cypress run --spec "cypress/e2e/hkms.cy.js"' // fixed Windows-style path and spec flag
+                sh 'npx cypress run --spec "cypress/e2e/hkms.cy.js"'
             }
         }
 
         stage('Result') {
             steps {
-                archiveArtifacts artifacts: 'cypress/videos/**/*.*' // fixed syntax
+                archiveArtifacts artifacts: 'cypress/videos/**/*.*' 
             }
         }
     }
