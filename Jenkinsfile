@@ -20,7 +20,7 @@ stage('Install dependency'){
 
 stage('Run Code'){
  stpes{
-sh 'npx cypress run'
+sh 'npx cypress run -spec cypress\e2e\hkms.cy.js '
  }
 }
 
