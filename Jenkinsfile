@@ -1,35 +1,38 @@
 pipeline {
     agent any
 
-    environment {
-        CHROME_DRIVER = 'Driver/Chrome Driver/chromedriver-win64/chromedriver.exe' // Use .exe on Windows
+
+
+    triggers {
+        cron('0 4 * * *') // This runs at 10:00 AM IST
+    }
+    tools {
+        nodejs "NodeJs 18"
     }
 
     stages {
-
-        stage('Checkout') {
+        stage('1st Stage') {
             steps {
-                git branch: 'main', url: 'https://github.com/TestKing239/Run-java.git'
+                git url: 'https://github.com/TestKing239/OrangeHRM.git', branch: 'main'
             }
         }
 
-        stage('Build') {
+        stage('Install dependency') {
             steps {
-                bat 'mvn clean install'
+                sh 'npm install'
             }
         }
 
-        stage('Run Selenium Tests') {
-            steps {
-                bat 'mvn test -Dheadless=false' // Set true if you want to run without browser
+        stage('Run Code') {
+            steps { // corrected 'stpes' to 'steps'
+                sh 'npx cypress run --spec "cypress/e2e/hkms.cy.js"'
             }
         }
-    }
 
-    post {
-        always {
-            junit '**/target/surefire-reports/*.xml'
-            archiveArtifacts artifacts: '**/screenshots/*.png', allowEmptyArchive: true
+        stage('Result') {
+            steps {
+                archiveArtifacts artifacts: 'cypress/videos/**/*.*' 
+            }
         }
     }
 }
