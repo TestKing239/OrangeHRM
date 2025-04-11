@@ -4,8 +4,8 @@ pipeline {
 
 
     triggers {
-        cron('0 4 * * *') // This runs at 10:00 AM IST
-    }
+    cron('20 8 * * *') // This runs at 1:50 PM IST
+}
     tools {
         nodejs "NodeJs 18"
     }
